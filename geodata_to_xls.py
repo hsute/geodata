@@ -1,6 +1,7 @@
 import os
 import csv
 import pandas as pd
+from glob import glob
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 CSV_DIR = SCRIPT_DIR + os.sep + 'csv' + os.sep
@@ -101,6 +102,9 @@ class XlsSheet:
 if __name__ == '__main__':
     if not os.path.exists(XLS_DIR):
         os.makedirs(XLS_DIR)
+
+    for f in glob(XLS_DIR + '*.xlsx'):
+        os.remove(f)
 
     try:
         with open(CR_FILE, newline='') as cr:
