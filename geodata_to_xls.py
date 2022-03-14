@@ -103,7 +103,7 @@ if __name__ == '__main__':
     if not os.path.exists(XLS_DIR):
         os.makedirs(XLS_DIR)
 
-    for f in glob(XLS_DIR + '*.xlsx'):
+    for f in glob(XLS_DIR + '*'):
         os.remove(f)
 
     try:
