@@ -2,8 +2,9 @@ import os
 import csv
 import pandas as pd
 
-CSV_DIR = 'csv/'
-XLS_DIR = CSV_DIR + 'xls/'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+CSV_DIR = SCRIPT_DIR + os.sep + 'csv' + os.sep
+XLS_DIR = CSV_DIR + 'xls' + os.sep
 CR_FILE = CSV_DIR + 'report.csv'
 CSV_DELIMITER = ';'
 
@@ -121,4 +122,5 @@ if __name__ == '__main__':
 
                 xls_sheet.add_row(row)
     except FileNotFoundError:
-        print('Nije pronadjena datoteka {}!'.format(CR_FILE))
+        print('Nije pronadjena CSV datoteka {}!'.format(CR_FILE))
+        exit(1)
