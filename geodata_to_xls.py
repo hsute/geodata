@@ -84,17 +84,17 @@ class XlsSheet:
     def convert_row(self, raw_row):
         return [
             raw_row[0],
-            self.convert_us2eu_numbers(raw_row[1], 2),
+            self.us2eu_numbers(raw_row[1], 2),
             raw_row[2],
-            self.convert_us2eu_numbers(raw_row[3], 2),
-            self.convert_us2eu_numbers(raw_row[4], 2),
-            self.convert_us2eu_numbers(raw_row[5], 2),
-            self.convert_us2eu_numbers(raw_row[6], 13),
-            self.convert_us2eu_numbers(raw_row[7], 13),
+            self.us2eu_numbers(raw_row[3], 2),
+            self.us2eu_numbers(raw_row[4], 2),
+            self.us2eu_numbers(raw_row[5], 2),
+            self.us2eu_numbers(raw_row[6], 13),
+            self.us2eu_numbers(raw_row[7], 13),
         ]
 
     @staticmethod
-    def convert_us2eu_numbers(value, decimals):
+    def us2eu_numbers(value, decimals):
         return format(round(float(value), decimals), '.{}f'.format(decimals)).replace('.', ',')
 
 
