@@ -121,6 +121,9 @@ if __name__ == '__main__':
                     xls_sheet = XlsSheet(statio)
 
                 xls_sheet.add_row(row)
+            if geo_xls:
+                geo_xls.add_sheet(xls_sheet)
+                geo_xls.done_writing()
     except FileNotFoundError:
         print('Nije pronadjena CSV datoteka {}!'.format(CR_FILE))
         exit(1)
