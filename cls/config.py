@@ -8,6 +8,9 @@ class Config:
     OUTPUT_DIR = INPUT_DIR + 'output' + os.sep
     CSV_DELIMITER = "\t"
     NO_0 = 'BEZ0'
+
+
+class ExcelConfig:
     XLS_TITLE = 'POPREČNI PROFIL NA STACIONAŽI {}'
     XLS_COL_A = 'Broj točke'
     XLS_COL_B = 'Udaljenost od osi vodotoka [m]'
@@ -20,3 +23,28 @@ class Config:
     XLS_COL_G = 'ϕ [deg]'
     XLS_COL_H = 'λ [deg]'
 
+    cell_format = {
+        'align': 'center'
+    }
+
+    cell_decimal2_format = {
+        'align': 'center',
+        'num_format': '0.00'
+    }
+
+    cell_decimal13_format = {
+        'align': 'center',
+        'num_format': '0.0000000000000'
+    }
+
+    header_format = {
+        'bold': True,
+        'align': 'center',
+        'valign': 'vcenter',
+        'border': 2,
+        'text_wrap': True
+    }
+
+    cell_table_format = {
+        'border': 1
+    }
