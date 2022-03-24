@@ -41,9 +41,8 @@ def finalize_df(final_df):
 def printdf(df):
     pd.set_option('display.max_rows', 100)
     pd.set_option('display.width', 1000)
-    pd.set_option('display.max_columns',10)
+    pd.set_option('display.max_columns', 10)
     print(df.iloc[0:80])
-
     exit()
 
 
@@ -60,18 +59,13 @@ if __name__ == '__main__':
     river = 'Neretva'
 
     ta = ToleranceAdapter(df, tolerance)
-
     if tolerance > 0:
         ta.process_sec_statios()
         df = ta.get_df()
-
     df = finalize_df(df)
+
     statios = df[1].unique()
     for statio in statios:
         geodata_excel = GeodataExcelWriter(statio, river, statio in ta.get_sec_statios())
         geodata_excel.add_sheet(df[df[1].values == statio])
         geodata_excel.done_writing()
-        #printdf(df)
-
-
-#print(df_xls.dtypes)
