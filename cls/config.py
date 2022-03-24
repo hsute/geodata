@@ -24,17 +24,20 @@ class ExcelConfig:
     XLS_COL_H = 'λ [deg]'
 
     cell_format = {
-        'align': 'center'
+        'align': 'center',
+        'border': 1
     }
 
     cell_decimal2_format = {
         'align': 'center',
-        'num_format': '0.00'
+        'num_format': '0.00',
+        'border': 1
     }
 
     cell_decimal13_format = {
         'align': 'center',
-        'num_format': '0.0000000000000'
+        'num_format': '0.0000000000000',
+        'border': 1
     }
 
     header_format = {
@@ -43,8 +46,4 @@ class ExcelConfig:
         'valign': 'vcenter',
         'border': 2,
         'text_wrap': True
-    }
-
-    cell_table_format = {
-        'border': 1
     }
