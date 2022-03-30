@@ -27,6 +27,8 @@ class Converter:
         excel_df = excel_df.drop(excel_df.index[-2:])
 
         excel_df.replace({2: {'m': ''}, 3: {'m': ''}}, inplace=True, regex=True)
+        #excel_df[2] = excel_df[2].apply(lambda x: x.replace('m', ''))
+        #excel_df[3] = excel_df[3].apply(lambda x: x.replace('m', ''))
         excel_df = excel_df.astype({0: 'int64', 2: 'float64', 3: 'float64'})
         excel_df.drop(excel_df[excel_df[4].str.startswith(("(4", "(5", "(6", "(7", "(8"))].index, inplace=True)
         excel_df[4].replace({'(9909)9909': 'Točka terena'}, inplace=True)
@@ -57,16 +59,3 @@ class Converter:
             geodata_excel.done_writing()
 
         return 0
-
-    def zabrisati_printdf(df):
-        pd.set_option('display.max_rows', 100)
-        pd.set_option('display.width', 1000)
-        pd.set_option('display.max_columns', 10)
-        print(df.iloc[0:80])
-        exit()
-
-    def zabrisati(df):
-        xls_writer = pd.ExcelWriter('input/medjureza.xlsx', engine='xlsxwriter')
-        df.to_excel(xls_writer, sheet_name='medju', startrow=1, index=False, header=False)
-        xls_writer.save()
-        exit()

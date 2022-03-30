@@ -8,10 +8,16 @@ class ToleranceAdapter:
         self.main_statios = self.df[self.df[2] == 0][1].unique()
         self.secondary_statios = self._get_secondary_statios()
 
+    """
+    Samo za ovaj algoritam mi je bitno da su glavne (offset=0) i sporedne 
+    stacionaze sortirane, da bi se skratilo nepotrebno iteriranje.
+    """
     def process_sec_statios(self):
-        for sec_statio in self.secondary_statios:
-            for main_statio in self.main_statios:
-                in_tolerance, stop_checking = self._in_tolerance(sec_statio, main_statio)
+        sec_sorted = self._sort_statios(self.secondary_statios)
+        main_sorted = self._sort_statios(self.main_statios)
+        for sec_meter, sec_statio in sec_sorted:
+            for main_meter, main_statio in main_sorted:
+                in_tolerance, stop_checking = self._in_tolerance(sec_meter, main_meter)
                 if in_tolerance:
                     self._adapt_sec_statio(sec_statio, main_statio)
                     break
@@ -29,9 +35,7 @@ class ToleranceAdapter:
         all_statios = self.df[1].unique()
         return numpy.setdiff1d(all_statios, self.main_statios, assume_unique=True)
 
-    def _in_tolerance(self, sec_statio, main_statio):
-        sec_meter = ToleranceAdapter._get_meters(sec_statio)
-        main_meter = ToleranceAdapter._get_meters(main_statio)
+    def _in_tolerance(self, sec_meter, main_meter):
         return [main_meter - self.tolerance <= sec_meter <= main_meter + self.tolerance,
                 main_meter - sec_meter > self.tolerance]
 
@@ -42,4 +46,10 @@ class ToleranceAdapter:
     def _adapt_sec_statio(self, sec_statio, main_statio):
         to_change = self.df[self.df[1].values == sec_statio]
         self.df.iloc[to_change.index.values, [1]] = main_statio
+
+    def _sort_statios(self, statios):
+        statio_dict = {}
+        for statio in statios:
+            statio_dict[self._get_meters(statio)] = statio
+        return sorted(statio_dict.items())
 
