@@ -20,9 +20,13 @@ class GeodataApp(tk.Tk):
             return
 
         # pokreni glavni racun
-        self.show_message("Pretvaram . . .", color="orange")
-        converter = Converter()
-        ret = converter.run(self.river, self.tolerance)
+        self.show_message("Pretvaram . . .", color="orange", width=36)
+        try:
+            converter = Converter()
+            ret = converter.run(self.river, self.tolerance)
+        except Exception as e:
+            self.show_message('ERROR: ' + str(e))
+            return
         if ret == 0:
             self.show_message("Great success!", color="green")
 
@@ -42,10 +46,10 @@ class GeodataApp(tk.Tk):
         self.show_message("")
         return True
 
-    def show_message(self, text, color='red'):
+    def show_message(self, text, color='red', width=0):
         self.label_msg['text'] = text
         self.label_msg['foreground'] = color
-        self.label_msg['width'] = 36
+        self.label_msg['width'] = width
         self.label_msg.update_idletasks()
 
     def create_form(self):

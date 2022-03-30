@@ -11,9 +11,6 @@ class Converter:
         self.df = self._get_input_df()
 
     def _get_input_df(self):
-        def has_valid_code(x):
-            return not x.startswith(("(4", "(5", "(6", "(7", "(8"))
-
         df_xls = pd.read_excel(Config.INPUT_XLS, header=None)
         df_csv = pd.read_csv(Config.INPUT_CSV, delimiter=Config.CSV_DELIMITER, header=None)
         df_csv.columns = [0, 5, 6, 7, 8]
@@ -21,7 +18,6 @@ class Converter:
         df_xls = self._tidy_excel(df_xls)
 
         df_xls = pd.merge(df_xls, df_csv, how='left', on=0)
-        df_xls = df_xls[df_xls[4].apply(has_valid_code)]
         df_xls = df_xls.sort_values(1, ignore_index=True)
         return df_xls
 
@@ -29,8 +25,10 @@ class Converter:
     def _tidy_excel(excel_df):
         excel_df = excel_df.drop(excel_df.index[0:14])
         excel_df = excel_df.drop(excel_df.index[-2:])
+
         excel_df.replace({2: {'m': ''}, 3: {'m': ''}}, inplace=True, regex=True)
         excel_df = excel_df.astype({0: 'int64', 2: 'float64', 3: 'float64'})
+        excel_df.drop(excel_df[excel_df[4].str.startswith(("(4", "(5", "(6", "(7", "(8"))].index, inplace=True)
         excel_df[4].replace({'(9909)9909': 'Točka terena'}, inplace=True)
         excel_df[4].replace({'\((\w| )+\)': ''}, inplace=True, regex=True)
         return excel_df
