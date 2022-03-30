@@ -27,8 +27,6 @@ class Converter:
         excel_df = excel_df.drop(excel_df.index[-2:])
 
         excel_df.replace({2: {'m': ''}, 3: {'m': ''}}, inplace=True, regex=True)
-        #excel_df[2] = excel_df[2].apply(lambda x: x.replace('m', ''))
-        #excel_df[3] = excel_df[3].apply(lambda x: x.replace('m', ''))
         excel_df = excel_df.astype({0: 'int64', 2: 'float64', 3: 'float64'})
         excel_df.drop(excel_df[excel_df[4].str.startswith(("(4", "(5", "(6", "(7", "(8"))].index, inplace=True)
         excel_df[4].replace({'(9909)9909': 'Točka terena'}, inplace=True)
