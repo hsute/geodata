@@ -47,7 +47,7 @@ class Converter:
         ta = ToleranceAdapter(self.df, tolerance)
         if tolerance > 0:
             ta.process_sec_statios()
-            df = ta.get_df()
+            self.df = ta.get_df()
         self._finalize_df()
 
         statios = self.df[1].unique()
