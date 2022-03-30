@@ -37,6 +37,8 @@ class GeodataApp(tk.Tk):
             except ValueError:
                 self.show_message("Tolerancija mora biti broj.")
                 return False
+        else:
+            self.tolerance = 0
         self.show_message("")
         return True
 
