@@ -1,4 +1,5 @@
 import tkinter as tk
+from cls.statio_converter import Converter
 
 
 class GeodataApp(tk.Tk):
@@ -19,13 +20,14 @@ class GeodataApp(tk.Tk):
             return
 
         # pokreni glavni racun
-        self.show_message("Kalkuliram...", color="orange")
-
-        #ako je uspjesno
-        #self.show_message("Great success!", color="green")
+        self.show_message("Pretvaram . . .", color="orange")
+        converter = Converter()
+        ret = converter.run(self.river, self.tolerance)
+        if ret == 0:
+            self.show_message("Great success!", color="green")
 
     def validate(self):
-        self.river = self.input_river.get().title()
+        self.river = self.input_river.get()
         if self.river == "":
             self.show_message("Vodotok je nužan.")
             return False
@@ -41,6 +43,8 @@ class GeodataApp(tk.Tk):
     def show_message(self, text, color='red'):
         self.label_msg['text'] = text
         self.label_msg['foreground'] = color
+        self.label_msg['width'] = 36
+        self.label_msg.update_idletasks()
 
     def create_form(self):
         self.rowconfigure([1, 2], minsize=80)
@@ -59,12 +63,12 @@ class GeodataApp(tk.Tk):
 
         label_tolerance = tk.Label(master=form, text="Tolerancija (m):", font=app_font)
         label_tolerance.grid(row=1, column=0, sticky='e')
-        self.input_tolerance = tk.Entry(master=form, width=12, font=app_font)
+        self.input_tolerance = tk.Entry(master=form, width=8, font=app_font)
         self.input_tolerance.grid(row=1, column=1, sticky='w', padx=10)
 
         form.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
 
-        self.label_msg = tk.Label(self, font=app_font)
+        self.label_msg = tk.Label(master=self, font=app_font)
         self.label_msg.grid(row=1, column=0, columnspan=2, padx=10)
 
         button_run = tk.Button(master=self, text="Pokreni", font=('Arial', 16, 'bold'), bg='#0abf1c', fg='white',
