@@ -7,8 +7,9 @@ class GeodataApp(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.title('Geodata')
+        self.title('GeodataApp')
         self.geometry("+600+300")
+        self.iconbitmap('img/logo.ico')
         self.river = ""
         self.tolerance = 0
         self.create_form()
@@ -37,7 +38,7 @@ class GeodataApp(tk.Tk):
             try:
                 self.tolerance = float(input_tolerance)
             except ValueError:
-                self.show_message("Tolerancija mora biti broj.")
+                self.show_message("Tolerancija mora biti u metrima.")
                 return False
         else:
             self.tolerance = 0
