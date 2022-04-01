@@ -11,16 +11,17 @@ class GeodataExcelWriter:
     def add_sheet(self, df):
         workbook = self.xls_writer.book
         sheet = workbook.add_worksheet(self.statio)
+        sheet.set_landscape()
         cell_formatter = workbook.add_format(ExcelConfig.cell_format)
         cell_dec2_formatter = workbook.add_format(ExcelConfig.cell_decimal2_format)
         cell_dec13_formatter = workbook.add_format(ExcelConfig.cell_decimal13_format)
 
         self._format_header(workbook, sheet)
-        sheet.set_column(0, 0, 10)
+        sheet.set_column(0, 0, 7)
         sheet.set_column(1, 1, 15)
         sheet.set_column(2, 2, 15)
-        sheet.set_column(3, 5, 15)
-        sheet.set_column(6, 7, 20)
+        sheet.set_column(3, 5, 13)
+        sheet.set_column(6, 7, 19)
 
         row_index = 4
         for i in range(len(df.index)):
