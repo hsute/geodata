@@ -8,6 +8,7 @@ class Config:
     OUTPUT_DIR = INPUT_DIR + 'output' + os.sep
     CSV_DELIMITER = "\t"
     NO_0 = 'BEZ0'
+    GUI_FONT = ('Arial', 14)
 
 
 class ExcelConfig:

@@ -1,5 +1,6 @@
 import tkinter as tk
 from cls.statio_converter import Converter
+from cls.config import Config
 
 
 class GeodataApp(tk.Tk):
@@ -54,33 +55,32 @@ class GeodataApp(tk.Tk):
     def create_form(self):
         self.rowconfigure([1, 2], minsize=80)
         self.columnconfigure([0, 1], weight=1)
-        app_font = ('Arial', 14, '')
 
         form = tk.Frame(master=self)
         form.rowconfigure([0, 1], minsize=60, weight=1)
         form.columnconfigure([0], minsize=120, weight=1)
         form.columnconfigure([1], minsize=240, weight=1)
 
-        label_river = tk.Label(master=form, text="Vodotok:", font=app_font)
+        label_river = tk.Label(master=form, text="Vodotok:", font=Config.GUI_FONT)
         label_river.grid(row=0, column=0, sticky='e')
-        input_river = tk.Entry(master=form, width=24, font=app_font)
+        input_river = tk.Entry(master=form, width=24, font=Config.GUI_FONT)
         input_river.grid(row=0, column=1, sticky='w', padx=10)
 
-        label_tolerance = tk.Label(master=form, text="Tolerancija (m):", font=app_font)
+        label_tolerance = tk.Label(master=form, text="Tolerancija (m):", font=Config.GUI_FONT)
         label_tolerance.grid(row=1, column=0, sticky='e')
-        input_tolerance = tk.Entry(master=form, width=8, font=app_font)
+        input_tolerance = tk.Entry(master=form, width=8, font=Config.GUI_FONT)
         input_tolerance.grid(row=1, column=1, sticky='w', padx=10)
 
         form.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
 
-        self.label_msg = tk.Label(master=self, font=app_font)
+        self.label_msg = tk.Label(master=self, font=Config.GUI_FONT)
         self.label_msg.grid(row=1, column=0, columnspan=2, padx=10)
 
         button_run = tk.Button(master=self, text="Pokreni", font=('Arial', 16, 'bold'), bg='#0abf1c', fg='white',
                                command=lambda: self.handle_submit(input_river.get(), input_tolerance.get()))
         button_run.grid(row=2, column=0, sticky='e', padx=10)
 
-        tk.Button(master=self, text="Zatvori", font=app_font, command=self.destroy)\
+        tk.Button(master=self, text="Zatvori", font=Config.GUI_FONT, command=self.destroy)\
             .grid(row=2, column=1, sticky='w', padx=10)
 
 
