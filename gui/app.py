@@ -9,6 +9,7 @@ class GeodataApp(tk.Tk):
         super().__init__()
         self.title('GeodataApp')
         self.geometry("+600+300")
+        self.iconbitmap('img/logo.ico')
         self.river = ""
         self.tolerance = 0
         self.create_form()
